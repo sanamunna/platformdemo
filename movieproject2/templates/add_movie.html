@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Add Movie</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name"><br><br>
+    <label for="image">Poster:</label>
+    <input type="file" id="image" name="image"><br><br>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description"></textarea><br><br>
+    <label for="release_date">Release Date:</label>
+    <input type="date" id="release_date" name="release_date"><br><br>
+    <label for="actors">Actors:</label>
+    <input type="text" id="actors" name="actors"><br><br>
+    <label for="category">Category:</label>
+    <select id="category" name="category">
+      {% for category in categories %}
+        <option value="{{ category.slug }}">{{ category.name }}</option>
+      {% endfor %}
+    </select><br><br>
+    <label for="trailer_link">Trailer Link:</label>
+    <input type="url" id="trailer_link" name="trailer_link"><br><br>
+    <button type="submit">Add Movie</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Movie Detail</h1>
+  <p>Name: {{ movie.name }}</p>
+  <p>Released: {{ movie.release_date }}</p>
+  <p>Category: {{ movie.category.name }}</p>
+  <p>Poster: {% if movie.image %}<img src="{{ movie.image.url }}" alt="Poster" style="width:200px;height:300px;">{% endif %}</p>
+  <p>Description: {{ movie.description }}</p>
+  <p>Actors: {{ movie.actors }}</p>
+  <p>Trailer: <a href="{{ movie.trailer_link }}">Watch Trailer</a></p>
+<a class="btn btn-warning" href="{% url 'modify' movie.slug %}">Update</a>
+<a class="btn btn-danger" href="{% url 'delete' movie.slug %}">Delete</a>
+<br><br>
+  <h2>Post Review</h2>
+<form method="post">
+  {% csrf_token %}
+  <label for="rating">Rating:</label>
+  <input type="number" id="rating" name="rating"><br><br>
+  <label for="review">Review:</label>
+  <textarea id="review" name="review"></textarea><br><br>
+  <button type="submit">Post</button>
+</form>
+<h2>Reviews:</h2>
+<ul>
+  {% for review in reviews %}
+  <li>
+    <p>Rating:{{review.rating}}</p>
+    <p>Review:{{review.review}}</p>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
